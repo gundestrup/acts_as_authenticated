@@ -1,0 +1,49 @@
+module RailsAuthentication
+  module Act
+    def self.included(base)
+      base.extend(ClassMethods)
+    end
+
+    module ClassMethods
+      # Sets up proper validations and encryptions so that the current model can be
+      # used as a login model.  Uses SHA1 as the encryption scheme by default.
+      #
+      # Validations
+      #
+      # Option:
+      #
+      #   <tt>encryptor</tt>: sets the encryptor class used.  It takes an
+      #   underscored string/symbol (:one_way_encryption by default).  An encryption 
+      #   class should live in the ActsAsAuthenticated.  This method will try to require
+      #   the class if it is not defined yet.
+      def acts_as_authenticated(encryptor = :one_way_encryption)
+        included_already = self.respond_to?(:authenticate)
+        unless included_already
+          self.validates_uniqueness_of   :login, :on => :create
+
+          self.validates_confirmation_of :password
+          self.validates_length_of       :login,    :within => 3..40
+          self.validates_length_of       :password, :within => 5..40
+          self.validates_presence_of     :login, 
+                                         :password, 
+                                         :password_confirmation
+        end
+  
+        self.class_eval do
+          attr_accessor :password
+          def self.authenticate(login, password)
+            u = find :first, :select => 'id, salt', :conditions => ['login = ? and active = ?', login, true]
+            return nil unless u
+            find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, encrypt(password, u.salt)]
+          end
+        end
+
+        encryptor_class = encryptor.to_s.classify.demodulize
+        require(encryptor.to_s) unless RailsAuthentication.const_defined?(encryptor_class)
+        RailsAuthentication::const_get(encryptor.to_s.classify.demodulize).attach(self)
+      end
+    end
+  end
+end
+
+ActiveRecord::Base.send :include, RailsAuthentication::Act
