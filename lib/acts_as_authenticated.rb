@@ -23,7 +23,7 @@ module RailsAuthentication
           self.validates_uniqueness_of   :login, :on => :create
 
           self.validates_length_of       :login,    :within => 3..40
-          self.validates_length_of       :password, :within => 5..40
+          self.validates_length_of       :password, :within => 5..40, :allow_nil => true
           self.validates_presence_of     :login
           self.validates_presence_of     :password, 
                                          :password_confirmation,
