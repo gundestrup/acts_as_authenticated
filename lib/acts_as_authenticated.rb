@@ -18,15 +18,17 @@ module RailsAuthentication
       #   the class if it is not defined yet.
       def acts_as_authenticated(encryptor = :one_way_encryption)
         included_already = self.respond_to?(:authenticate)
+        no_crypted_password = Proc.new { |record| record.crypted_password.nil? }
         unless included_already
           self.validates_uniqueness_of   :login, :on => :create
 
-          self.validates_confirmation_of :password
           self.validates_length_of       :login,    :within => 3..40
           self.validates_length_of       :password, :within => 5..40
-          self.validates_presence_of     :login, 
-                                         :password, 
-                                         :password_confirmation
+          self.validates_presence_of     :login
+          self.validates_presence_of     :password, 
+                                         :password_confirmation,
+                                         :if => no_crypted_password
+          self.validates_confirmation_of :password, :if => no_crypted_password
         end
   
         self.class_eval do
