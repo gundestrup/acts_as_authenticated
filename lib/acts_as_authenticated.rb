@@ -20,7 +20,7 @@ module RailsAuthentication
         included_already = self.respond_to?(:authenticate)
         no_crypted_password = Proc.new { |record| record.crypted_password.nil? }
         unless included_already
-          self.validates_uniqueness_of   :login, :email
+          self.validates_uniqueness_of   :login, :email, :salt
           self.validates_length_of       :login,    :within => 3..40
           self.validates_length_of       :email,    :within => 3..100
           self.validates_length_of       :password, :within => 5..40, :allow_nil => true
@@ -47,8 +47,12 @@ module RailsAuthentication
             self.class.encrypt(password, salt)
           end
 
-          def activation_code
-            @activation_code ||= encrypt("--#{salt}--#{login}--")
+          def create_activation_code
+            self.activation_code = encrypt("--#{salt}--#{login}--")
+          end
+
+          def create_salt
+            self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--")
           end
         end
 

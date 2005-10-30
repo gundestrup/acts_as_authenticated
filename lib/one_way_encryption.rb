@@ -4,6 +4,11 @@ module RailsAuthentication
     # Encrypts the model's password in the after_validation callback
     def before_save(model)
       return unless model.password
+      if model.new_record?
+        model.create_activate_code
+        model.create_salt
+      end
+      
       model.crypted_password = self.class.encrypt(model.password, model.salt)
     end
 
@@ -17,11 +22,6 @@ module RailsAuthentication
       def attach(model_class)
         model_class.class_eval do
           cattr_accessor :encryptor
-
-          def salt
-            self.salt = Digest::SHA1.hexdigest(Time.now.to_s) unless attribute_present?('salt')
-            read_attribute 'salt'
-          end
 
           def encrypt(data)
             encryptor.encrypt(data, salt)
