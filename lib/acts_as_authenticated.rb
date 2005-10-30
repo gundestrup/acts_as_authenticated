@@ -46,6 +46,10 @@ module RailsAuthentication
           def encrypt(password)
             self.class.encrypt(password, salt)
           end
+
+          def activation_code
+            @activation_code ||= encrypt("--#{salt}--#{login}--")
+          end
         end
 
         encryptor_class = encryptor.to_s.classify.demodulize

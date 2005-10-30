@@ -5,7 +5,6 @@ module RailsAuthentication
     def before_save(model)
       return unless model.password
       model.crypted_password = self.class.encrypt(model.password, model.salt)
-      model.password = nil
     end
 
     class << self
