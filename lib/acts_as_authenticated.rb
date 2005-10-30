@@ -20,11 +20,11 @@ module RailsAuthentication
         included_already = self.respond_to?(:authenticate)
         no_crypted_password = Proc.new { |record| record.crypted_password.nil? }
         unless included_already
-          self.validates_uniqueness_of   :login, :on => :create
-
+          self.validates_uniqueness_of   :login, :email
           self.validates_length_of       :login,    :within => 3..40
+          self.validates_length_of       :email,    :within => 3..100
           self.validates_length_of       :password, :within => 5..40, :allow_nil => true
-          self.validates_presence_of     :login
+          self.validates_presence_of     :login, :email
           self.validates_presence_of     :password, 
                                          :password_confirmation,
                                          :if => no_crypted_password
@@ -36,7 +36,15 @@ module RailsAuthentication
           def self.authenticate(login, password)
             u = find :first, :select => 'id, salt', :conditions => ['login = ? and active = ?', login, true]
             return nil unless u
-            find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, encryptor.encrypt(password, u.salt)]
+            find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, u.encrypt(password)]
+          end
+          
+          def self.encrypt(password, salt)
+            encryptor.encrypt(password, u.salt)
+          end
+          
+          def encrypt(password)
+            self.class.encrypt(password, salt)
           end
         end
 
