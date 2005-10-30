@@ -5,7 +5,7 @@ module RailsAuthentication
     def before_save(model)
       return unless model.password
       if model.new_record?
-        model.create_activate_code
+        model.create_activation_code
         model.create_salt
       end
       
