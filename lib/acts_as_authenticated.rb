@@ -36,7 +36,7 @@ module RailsAuthentication
           def self.authenticate(login, password)
             u = find :first, :select => 'id, salt', :conditions => ['login = ? and active = ?', login, true]
             return nil unless u
-            find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, encrypt(password, u.salt)]
+            find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, encryptor.encrypt(password, u.salt)]
           end
         end
 
