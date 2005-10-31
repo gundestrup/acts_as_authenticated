@@ -56,7 +56,7 @@ module RailsAuthentication
           end
           
           def activate
-            @activated = update_attributes :active => true
+            @activated = update_attributes(:active => true)
           end
         end
 
