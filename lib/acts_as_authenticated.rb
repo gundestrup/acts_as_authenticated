@@ -54,6 +54,10 @@ module RailsAuthentication
           def create_salt
             self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--")
           end
+          
+          def activate
+            @activated = update_attributes :active => true
+          end
         end
 
         encryptor_class = encryptor.to_s.classify.demodulize
