@@ -58,6 +58,10 @@ module RailsAuthentication
           def activate
             @activated = update_attributes(:active => true)
           end
+          
+          def newly_activated?
+            @activated
+          end
         end
 
         encryptor_class = encryptor.to_s.classify.demodulize
