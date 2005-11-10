@@ -1,10 +1,10 @@
-module RailsAuthentication
-  module Act
+module Caboose
+  module Authentication
     def self.included(base)
-      base.extend(ClassMethods)
+      base.extend(Act)
     end
 
-    module ClassMethods
+    module Act
       # Sets up proper validations and encryptions so that the current model can be
       # used as a login model.  Uses SHA1 as the encryption scheme by default.
       #
@@ -13,10 +13,9 @@ module RailsAuthentication
       # Option:
       #
       #   <tt>encryptor</tt>: sets the encryptor class used.  It takes an
-      #   underscored string/symbol (:one_way_encryption by default).  An encryption 
-      #   class should live in the ActsAsAuthenticated.  This method will try to require
+      #   underscored string/symbol (:one_way_encryption by default).  This method will try to require
       #   the class if it is not defined yet.
-      def acts_as_authenticated(encryptor = :one_way_encryption)
+      def acts_as_authenticated(encryptor = :one_way_authentication)
         included_already = self.respond_to?(:authenticate)
         no_crypted_password = Proc.new { |record| record.crypted_password.nil? }
         unless included_already
@@ -60,17 +59,15 @@ module RailsAuthentication
             update_attributes(:active => true)
           end
           
-          def newly_activated?
+          def recently_activated?
             @activated
           end
         end
 
-        encryptor_class = encryptor.to_s.classify.demodulize
-        require(encryptor.to_s) unless RailsAuthentication.const_defined?(encryptor_class)
-        RailsAuthentication::const_get(encryptor.to_s.classify.demodulize).attach(self)
+        encryptor.to_s.classify.constantize.attach(self)
+        #require("caboose/authentication/#{encryptor}") unless Caboose::Authentication.const_defined?(encryptor.to_s.classify.demodulize)
+        #Caboose::Authentication.const_get(encryptor.to_s.classify.demodulize).attach(self)
       end
     end
   end
 end
-
-ActiveRecord::Base.send :include, RailsAuthentication::Act

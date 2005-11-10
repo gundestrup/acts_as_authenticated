@@ -1,0 +1,8 @@
+Your account has been created.
+
+  Username: <%= @<%= class_path %>.login %>
+  Password: <%= @<%= class_path %>.password %>
+
+Visit this url to activate your account:
+
+  <%= @url %>
