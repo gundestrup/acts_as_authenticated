@@ -10,7 +10,7 @@ module Caboose
           model.create_salt
         end
       
-        model.crypted_password = self.class.encrypt(model.password, model.salt)
+        model.crypted_password = model.encrypt(model.password)
       end
   
       class << self
