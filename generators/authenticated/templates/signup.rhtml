@@ -1,0 +1,15 @@
+<%%= start_form_tag %>
+<p><label for="login">Login</label><br/>
+<%%= text_field '<%= file_name %>', 'login' %></p>
+
+<p><label for="email">Email</label><br/>
+<%%= text_field '<%= file_name %>', 'email' %></p>
+
+<p><label for="password">Password</label><br/>
+<%%= password_field '<%= file_name %>', 'password' %></p>
+
+<p><label for="password">Confirm Password</label><br/>
+<%%= password_field '<%= file_name %>', 'password_confirmation' %></p>
+
+<p><%%= submit_tag 'Sign up' %></p>
+<%%= end_form_tag %>
