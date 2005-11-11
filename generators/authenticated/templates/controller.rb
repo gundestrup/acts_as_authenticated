@@ -1,4 +1,4 @@
-class <%= class_name %>Controller < ActionController::Base
+class <%= controller_class_name %>Controller < ActionController::Base
   # Add <tt>login_required</tt> to a controller to restrict access:
   #
   #   # Restricts access on all actions
