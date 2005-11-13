@@ -28,8 +28,6 @@ module AuthenticatedSystem
     @current_<%= file_name %> = new_<%= file_name %>
   end
 
-  alias_method :set_current_<%= file_name %>, :current_<%= file_name %>=
-
   # overwrite this if you want to restrict access to only a few actions
   # or if you want to check if the <%= file_name %> has the correct rights  
   # example:
