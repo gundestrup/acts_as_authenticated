@@ -1,4 +1,4 @@
-class AuthMailerGenerator < Rails::Generator::NamedBase
+class AuthenticatedMailerGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
       # Check for class naming collisions.

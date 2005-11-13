@@ -5,7 +5,7 @@ This is a basic authentication generator for rails, very much in the spirit of x
 
 To use:
 
-  ./script/generate auth user account
+  ./script/generate authenticated user account
 
 This generates a basic user model, a controller, some basic views, and tests.  Plenty of comments are provided to help you progress.
    

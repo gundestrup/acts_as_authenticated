@@ -1,4 +1,4 @@
-class AuthGenerator < Rails::Generator::NamedBase
+class AuthenticatedGenerator < Rails::Generator::NamedBase
   attr_reader   :controller_name,
                 :controller_class_path,
                 :controller_file_path,

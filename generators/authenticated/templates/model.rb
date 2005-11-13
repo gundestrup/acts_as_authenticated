@@ -12,7 +12,7 @@
 #
 # If you wish to have a mailer, run:
 #
-#   ./script/generate auth_mailer user
+#   ./script/generate authenticated_mailer user
 # 
 # Be sure to add the observer to the form login controller:
 #

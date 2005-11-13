@@ -1,1 +1,1 @@
-./script/generate auth_mailer USERMODEL
+./script/generate authenticated_mailer USERMODEL
