@@ -1,6 +1,18 @@
 class <%= controller_class_name %>Controller < ApplicationController
-  # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
+  # Be sure to include AuthenticationSystem in Application Controller instead
+  # To require logins, use:
+  #
+  #   before_filter :login_required                            # restrict all actions
+  #   before_filter :login_required, :only => [:edit, :update] # only restrict these actions
+  # 
+  # To skip this in a subclassed controller:
+  #
+  #   skip_before_filter :login_required
+
+  # say something nice, you goof!  something sweet.
+  def index
+  end
 
   def login
     return unless request.post?

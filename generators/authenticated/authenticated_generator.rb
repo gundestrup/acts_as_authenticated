@@ -81,7 +81,7 @@ class AuthenticatedGenerator < Rails::Generator::NamedBase
                             "#{table_name}.yml")
 
       # Controller templates
-      %w( login signup ).each do |action|
+      %w( index login signup ).each do |action|
         m.template "#{action}.rhtml",
                    File.join('app/views', controller_class_path, controller_file_name, "#{action}.rhtml")
       end

@@ -55,19 +55,15 @@ module AuthenticatedSystem
     true
   end
 
-  # login_required filter. Use the #login_required macro:
+  # To require logins, use:
   #
-  #   before_filter :login_required
-  #
-  # if the controller should be under any rights management. 
-  # for finer access control you can overwrite
-  #   
-  #   def authorize?(<%= file_name %>)
+  #   before_filter :login_required                            # restrict all actions
+  #   before_filter :login_required, :only => [:edit, :update] # only restrict these actions
   # 
   # To skip this in a subclassed controller:
   #
   #   skip_before_filter :login_required
-  #
+  # 
   def login_required
     # skip login check if action is not protected
     return true unless protect?(action_name)
