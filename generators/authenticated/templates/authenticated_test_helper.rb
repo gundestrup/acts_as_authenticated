@@ -1,5 +1,5 @@
 module AuthenticatedTestHelper
-  # Sets the current <%= file_name %> in the session from the <%= fi
+  # Sets the current <%= file_name %> in the session from the <%= file_name %> fixtures.
   def login_as(<%= file_name %>)
     @request.session[:<%= file_name %>] = <%= table_name %>(<%= file_name %>).id
   end
