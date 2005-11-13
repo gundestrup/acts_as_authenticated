@@ -3,5 +3,6 @@ quentin:
   login: quentin
   email: quentin@example.com
   salt: 62a636a58d0648eadf7410aa2e4444866174c96e
-  crypted_password: be61f3ff72492591afe5081857a8ff17a85b21f9 # quentin
+  #crypted_password: be61f3ff72492591afe5081857a8ff17a85b21f9 # quentin
+  crypted_password: "ce2/iFrNtQ8=\n" # quentin, use only if you're using 2-way encryption
   created_at: <%%= 5.days.ago.to_s :db %>

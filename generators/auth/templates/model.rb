@@ -19,6 +19,12 @@
 #   class AccountController < ActionController::Base
 #     observer :user_observer
 #   end
+#
+# For extra credit: keep these two requires for 2-way reversible encryption
+# require 'openssl'
+# require 'base64'
+#
+require 'digest/sha1'
 class <%= class_name %> < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -52,6 +58,29 @@ class <%= class_name %> < ActiveRecord::Base
     self.class.encrypt(password, salt)
   end
 
+  # More extra credit for adding 2-way encryption.  Feel free to remove self.encrypt above if you use this
+  #
+  # # Encrypts some data with the salt.
+  # def self.encrypt(password, salt)
+  #   enc = OpenSSL::Cipher::Cipher.new('DES-EDE3-CBC')
+  #   enc.encrypt(salt)
+  #   data = enc.update(password)
+  #   Base64.encode64(data << enc.final)
+  # end
+  # 
+  # # getter method to decrypt password
+  # def password
+  #   unless @password
+  #     enc = OpenSSL::Cipher::Cipher.new('DES-EDE3-CBC')
+  #     enc.decrypt(salt)
+  #     text = enc.update(Base64.decode64(crypted_password))
+  #     @password = (text << enc.final)
+  #   end
+  #   @password
+  # rescue
+  #   nil
+  # end
+
   # Activates the user in the database.
   def activate
     @activated = true
@@ -63,6 +92,7 @@ class <%= class_name %> < ActiveRecord::Base
     @activated
   end
   
+  protected
   # before filter 
   def encrypt_password
     return unless password
