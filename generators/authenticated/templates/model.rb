@@ -5,7 +5,7 @@
 #     t.column "crypted_password", :string, :limit => 40
 #     t.column "salt",             :string, :limit => 40
 #     t.column "activation_code",  :string, :limit => 40
-#     t.column "active",           :boolean
+#     t.column "active",           :boolean, :defautl => false # only if you want user activation
 #     t.column "created_at",       :datetime
 #     t.column "updated_at",       :datetime
 #   end
@@ -43,7 +43,9 @@ class <%= class_name %> < ActiveRecord::Base
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find :first, :select => 'id, salt', :conditions => ['login = ? and active = ?', login, true]
+    u = find_by_login(login) # need to get the salt
+    # use this instead if you want user activation
+    # u = find :first, :select => 'id, salt', :conditions => ['login = ? and active = ?', login, true]
     return nil unless u
     find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, u.encrypt(password)]
   end
@@ -81,16 +83,18 @@ class <%= class_name %> < ActiveRecord::Base
   #   nil
   # end
 
-  # Activates the user in the database.
-  def activate
-    @activated = true
-    update_attributes(:active => true)
-  end
-  
-  # Returns true if the user has just been activated.
-  def recently_activated?
-    @activated
-  end
+  # Uncomment these methods for user activation  These also help let the mailer know precisely when the user is activated.
+  #
+  # # Activates the user in the database.
+  # def activate
+  #   @activated = true
+  #   update_attributes(:active => true)
+  # end
+  # 
+  # # Returns true if the user has just been activated.
+  # def recently_activated?
+  #   @activated
+  # end
   
   protected
   # before filter 
