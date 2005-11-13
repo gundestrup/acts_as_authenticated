@@ -1,4 +1,4 @@
-class AuthenticatedGenerator < Rails::Generator::NamedBase
+class AuthGenerator < Rails::Generator::NamedBase
   attr_reader   :controller_name,
                 :controller_class_path,
                 :controller_file_path,
@@ -34,7 +34,8 @@ class AuthenticatedGenerator < Rails::Generator::NamedBase
                                                 #"#{controller_class_name}ControllerTest", 
                                                 "#{controller_class_name}Helper"
       m.class_collisions class_path,            "#{class_name}"
-                                                #"#{class_name}Test",
+                                                #"#{class_name}Test"
+      m.class_collisions [], 'AuthenticatedSystem'
 
       # Controller, helper, views, and test directories.
       m.directory File.join('app/models', class_path)
@@ -52,6 +53,12 @@ class AuthenticatedGenerator < Rails::Generator::NamedBase
                   File.join('app/controllers',
                             controller_class_path,
                             "#{controller_file_name}_controller.rb")
+
+      m.template 'authenticated_system.rb',
+                  File.join('lib', 'authenticated_system.rb')
+
+      m.template 'authenticated_test_helper.rb',
+                  File.join('test', 'authenticated_test_helper.rb')
 
       #m.template 'functional_test.rb',
       #            File.join('test/functional',

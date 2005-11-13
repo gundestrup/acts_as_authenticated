@@ -1,5 +1,4 @@
-require 'test/unit'
-class Test::Unit::TestCase
+class AuthenticatedTestHelper
   def login_as(user)
     @request.session[:user] = users(user)
   end
