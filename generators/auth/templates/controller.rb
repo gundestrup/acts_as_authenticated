@@ -1,8 +1,10 @@
-class <%= controller_class_name %>Controller < ActionController::Base
-  # Be sure to include AuthenticationSystem in Application Controller
+class <%= controller_class_name %>Controller < ApplicationController
+  # Be sure to include AuthenticationSystem in Application Controller instead
+  include AuthenticatedSystem
+
   def login
     return unless request.post?
-    set_current_<%= file_name %> <%= class_name %>.authenticate(params[:login], params[:password])
+    self.current_<%= file_name %> = <%= class_name %>.authenticate(params[:login], params[:password])
     if current_<%= file_name %>
       redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
       flash[:notice] = "Logged in successfully"
@@ -28,7 +30,7 @@ class <%= controller_class_name %>Controller < ActionController::Base
   end
 
   def logout
-    set_current_<%= file_name %> nil
+    self.current_<%= file_name %> = nil
     flash[:notice] = "You have been logged out."
     redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
   end

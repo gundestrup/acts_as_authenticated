@@ -35,14 +35,15 @@ class AuthGenerator < Rails::Generator::NamedBase
                                                 "#{controller_class_name}Helper"
       m.class_collisions class_path,            "#{class_name}"
                                                 #"#{class_name}Test"
-      m.class_collisions [], 'AuthenticatedSystem'
+      m.class_collisions [], 'AuthenticatedSystem', 'AuthenticatedTestHelper'
 
       # Controller, helper, views, and test directories.
       m.directory File.join('app/models', class_path)
       m.directory File.join('app/controllers', controller_class_path)
       m.directory File.join('app/helpers', controller_class_path)
       m.directory File.join('app/views', controller_class_path, controller_file_name)
-      #m.directory File.join('test/functional', controller_class_path)
+      m.directory File.join('test/functional', controller_class_path)
+      m.directory File.join('test/unit', class_path)
 
       m.template 'model.rb',
                   File.join('app/models',
@@ -58,17 +59,26 @@ class AuthGenerator < Rails::Generator::NamedBase
                   File.join('lib', 'authenticated_system.rb')
 
       m.template 'authenticated_test_helper.rb',
-                  File.join('test', 'authenticated_test_helper.rb')
+                  File.join('lib', 'authenticated_test_helper.rb')
 
-      #m.template 'functional_test.rb',
-      #            File.join('test/functional',
-      #                      controller_class_path,
-      #                      "#{controller_file_name}_controller_test.rb")
+      m.template 'functional_test.rb',
+                  File.join('test/functional',
+                            controller_class_path,
+                            "#{controller_file_name}_controller_test.rb")
 
       m.template 'helper.rb',
                   File.join('app/helpers',
                             controller_class_path,
                             "#{controller_file_name}_helper.rb")
+
+      m.template 'unit_test.rb',
+                  File.join('test/unit',
+                            class_path,
+                            "#{file_name}_test.rb")
+
+      m.template 'fixtures.yml',
+                  File.join('test/fixtures',
+                            "#{table_name}.yml")
 
       # Controller templates
       %w( login signup ).each do |action|

@@ -1,5 +1,5 @@
 # Sample schema:
-#   create_table "users", :force => true do |t|
+#   create_table "<%= table_name %>", :force => true do |t|
 #     t.column "login",            :string, :limit => 40
 #     t.column "email",            :string, :limit => 100
 #     t.column "crypted_password", :string, :limit => 40
@@ -43,7 +43,7 @@ class <%= class_name %> < ActiveRecord::Base
   end
 
   # Encrypts some data with the salt.
-  def encrypt(password, salt)
+  def self.encrypt(password, salt)
     Digest::SHA1.hexdigest("--#{salt}--#{password}--")
   end
 
@@ -66,10 +66,7 @@ class <%= class_name %> < ActiveRecord::Base
   # before filter 
   def encrypt_password
     return unless password
-    if new_record?
-      self.activation_code = Digest::SHA1.hexdigest("--#{salt}--#{login}--")
-      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--")
-    end
+    self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
     self.crypted_password = encrypt(password)
   end
 end

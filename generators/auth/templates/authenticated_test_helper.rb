@@ -1,16 +1,16 @@
-class AuthenticatedTestHelper
-  def login_as(user)
-    @request.session[:user] = users(user)
+module AuthenticatedTestHelper
+  def login_as(<%= file_name %>)
+    @request.session[:<%= file_name %>] = <%= file_name %>s(<%= file_name %>)
   end
 
-  def assert_requires_login(user = nil, &block)
-    login_as(user) if user
+  def assert_requires_login(<%= file_name %> = nil, &block)
+    login_as(<%= file_name %>) if <%= file_name %>
     block.call
     assert_response :redirect
   end
 
-  def assert_accepts_login(user = nil, &block)
-    login_as(user) if user
+  def assert_accepts_login(<%= file_name %> = nil, &block)
+    login_as(<%= file_name %>) if <%= file_name %>
     block.call
     assert_response :success
   end
