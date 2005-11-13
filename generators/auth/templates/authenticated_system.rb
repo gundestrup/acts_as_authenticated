@@ -6,24 +6,26 @@ module AuthenticatedSystem
 
   # accesses the current <%= file_name %> from the session.
   # overwrite this to set how the current <%= file_name %> is retrieved from the session.
-  # To store just the ID and grab the <%= file_name %> on each request:
+  # To store just the whole <%= file_name %> model in the session:
   #
   #   def current_<%= file_name %>
-  #     @current_<%= file_name %> ||= <%= class_name %>.find_by_id(session[:<%= file_name %>])
+  #     session[:<%= file_name %>]
   #   end
+  # 
   def current_<%= file_name %>
-    session[:<%= file_name %>]
+    @current_<%= file_name %> ||= <%= class_name %>.find_by_id(session[:<%= file_name %>])
   end
 
   # store the given <%= file_name %> in the session.  overwrite this to set how
-  # <%= file_name %>s are stored in the session.  To store the ID, do:
+  # <%= file_name %>s are stored in the session.  To store the whole <%= file_name %> model, do:
   #
   #   def current_<%= file_name %>=(new_<%= file_name %>)
-  #     session[:<%= file_name %>] = new_<%= file_name %>.id
-  #     @current_<%= file_name %> = new_<%= file_name %>
+  #     session[:<%= file_name %>] = new_<%= file_name %>
   #   end
+  # 
   def current_<%= file_name %>=(new_<%= file_name %>)
-    session[:<%= file_name %>] = new_<%= file_name %>
+    session[:<%= file_name %>] = new_<%= file_name %>.nil? ? nil : new_<%= file_name %>.id
+    @current_<%= file_name %> = new_<%= file_name %>
   end
 
   alias_method :set_current_<%= file_name %>, :current_<%= file_name %>=

@@ -18,7 +18,7 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
 
   def test_should_login_and_redirect
     post :login, :login => 'quentin', :password => 'quentin'
-    assert_equal <%= table_name %>(:quentin), session[:<%= file_name %>]
+    assert session[:<%= file_name %>]
     assert_response :redirect
   end
 
