@@ -1,0 +1,11 @@
+acts_as_authenticated generator
+====
+
+This is a basic authentication generator for rails, very much in the spirit of xal's original Login Generator.
+
+To use:
+
+  ./script/generate auth user account
+
+This generates a basic user model, a controller, some basic views, and tests.  Plenty of comments are provided to help you progress.
+   

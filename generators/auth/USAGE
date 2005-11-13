@@ -1,1 +1,1 @@
-adsf
+./script/generate auth USERMODEL CONTROLLERNAME

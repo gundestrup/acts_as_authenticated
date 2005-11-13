@@ -1,1 +1,1 @@
-adsf
+./script/generate auth_mailer USERMODEL
