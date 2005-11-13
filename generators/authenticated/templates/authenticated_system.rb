@@ -54,16 +54,12 @@ module AuthenticatedSystem
   #    end
   #  end
   def protect?(action)
-    (self.class.protected_actions || controller_actions).to_a.include?(action.to_s)
-  end
-
-  def controller_actions
-    @controller_actions ||= public_methods - ApplicationController.new.public_methods
+    true
   end
 
   # login_required filter. Use the #login_required macro:
   #
-  #   login_required
+  #   before_filter :login_required
   #
   # if the controller should be under any rights management. 
   # for finer access control you can overwrite
@@ -95,7 +91,7 @@ module AuthenticatedSystem
   # example use :
   # a popup window might just close itself for instance
   def access_denied
-    redirect_to :controller=>"/account", :action =>"login"
+    redirect_to :controller=>"/<%= controller_file_name %>", :action =>"login"
   end  
 
   # store current uri in  the session.
@@ -112,18 +108,6 @@ module AuthenticatedSystem
 
   # adds ActionView helper methods
   def self.included(base)
-    base.class_eval do
-      helper_method :current_<%= file_name %>, :logged_in?
-      cattr_accessor :protected_actions
-
-      def self.login_required(*protected_actions)
-        set_protected_actions(protected_actions) unless protected_actions.empty?
-        before_filter :login_required
-      end
-
-      def self.accepts_anonymous
-        define_method(:protect?) { |action| false }
-      end
-    end
+    base.send :helper_method, :current_<%= file_name %>, :logged_in?
   end
 end
