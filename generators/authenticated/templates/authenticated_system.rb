@@ -17,7 +17,7 @@ module AuthenticatedSystem
   end
 
   # store the given <%= file_name %> in the session.  overwrite this to set how
-  # <%= file_name %>s are stored in the session.  To store the whole <%= file_name %> model, do:
+  # <%= table_name %> are stored in the session.  To store the whole <%= file_name %> model, do:
   #
   #   def current_<%= file_name %>=(new_<%= file_name %>)
   #     session[:<%= file_name %>] = new_<%= file_name %>
