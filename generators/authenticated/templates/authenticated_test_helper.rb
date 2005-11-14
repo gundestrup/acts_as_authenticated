@@ -11,7 +11,7 @@ module AuthenticatedTestHelper
   def assert_requires_login(<%= file_name %> = nil, &block)
     login_as(<%= file_name %>) if <%= file_name %>
     block.call
-    assert_redirected_to :controller => '/<%= controller_file_name %>', :action => 'login'
+    assert_redirected_to :controller => '<%= controller_file_name %>', :action => 'login'
   end
 
   # Assert the block accepts the login
