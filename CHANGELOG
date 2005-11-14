@@ -1,0 +1,12 @@
+* (13 Nov 2005)
+
+  fixed assert_login_required bug with :controller => '/account'
+  tweak logged_in? method to check for valid current_user, not just any old id value
+  comment out user activation by default
+  added index template, updated login_required comments
+  removed troublesome login_required class method.  use the filter instead
+
+* (12 Nov 2005) 
+
+  renaming generators to authentication and authentication_mailer
+  store user ID in session by default
