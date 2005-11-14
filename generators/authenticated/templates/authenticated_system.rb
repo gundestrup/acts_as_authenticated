@@ -1,7 +1,7 @@
 module AuthenticatedSystem
   protected
   def logged_in?
-    !session[:<%= file_name %>].nil?
+    current_<%= file_name %>
   end
 
   # accesses the current <%= file_name %> from the session.
@@ -13,7 +13,7 @@ module AuthenticatedSystem
   #   end
   # 
   def current_<%= file_name %>
-    @current_<%= file_name %> ||= <%= class_name %>.find_by_id(session[:<%= file_name %>])
+    @current_<%= file_name %> ||= session[:<%= file_name %>] ? <%= class_name %>.find_by_id(session[:<%= file_name %>]) : nil
   end
 
   # store the given <%= file_name %> in the session.  overwrite this to set how
