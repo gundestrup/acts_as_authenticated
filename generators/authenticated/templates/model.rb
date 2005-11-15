@@ -84,6 +84,7 @@ class <%= class_name %> < ActiveRecord::Base
   # end
 
   # Uncomment these methods for user activation  These also help let the mailer know precisely when the user is activated.
+  # The controller has a commented-out 'activate' action too.
   #
   # # Activates the user in the database.
   # def activate
