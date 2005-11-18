@@ -1,3 +1,7 @@
+* (18 Nov 2005)
+
+  Allow changing of the login model name when generating the observer [Bill Katz]
+
 * (15 Nov 2005)
 
   Commented out the activate action in the controller [tobyjoe]
