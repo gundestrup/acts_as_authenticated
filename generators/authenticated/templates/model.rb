@@ -5,7 +5,7 @@
 #     t.column "crypted_password", :string, :limit => 40
 #     t.column "salt",             :string, :limit => 40
 #     t.column "activation_code",  :string, :limit => 40
-#     t.column "active",           :boolean, :defautl => false # only if you want user activation
+#     t.column "active",           :boolean, :default => false # only if you want user activation
 #     t.column "created_at",       :datetime
 #     t.column "updated_at",       :datetime
 #   end
