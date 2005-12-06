@@ -8,7 +8,7 @@ Description:
     in the queue.
 
 Example:
-    ./script/generate authenticated_migration
+    ./script/generate authenticated_migration add_authenticated_table
 
     With 4 existing migrations, this will create an AddAuthenticatedTable migration in the
     file db/migrate/5_add_authenticated_table.rb
