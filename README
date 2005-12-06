@@ -7,7 +7,10 @@ To use:
 
   ./script/generate authenticated user account
 
-This generates a basic user model, a controller, some basic views, and tests.  Two more generators are provided...
+This generates a basic user model, a controller, some basic views, and tests.  Extra functionality can be unlocked by
+removing the comments for them.  I have a few examples such as user activation and reversible encrypted passwords.
+
+Two more generators are provided...
 
 Generate your mailer:
 
@@ -17,5 +20,7 @@ Generate a new migration for the user model:
 
   ./script/generate authenticated_migration add_authenticated_table
 
-Plenty of comments are provided in the source code to help you progress.
+Plenty of comments are provided in the source code to help you progress.  Look at the generated account controller 
+for examples on using the AuthenticatedSystem mixin, and the account controller functional tests for examples on the
+AuthenticatedTestHelper.
    
