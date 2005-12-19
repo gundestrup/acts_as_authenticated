@@ -41,6 +41,9 @@ class <%= class_name %> < ActiveRecord::Base
   validates_confirmation_of :password, :if => no_crypted_password
   before_save :encrypt_password
 
+  # Uncomment this to use activation
+  #before_create :make_activation_code
+
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
     u = find_by_login(login) # need to get the salt
@@ -84,6 +87,8 @@ class <%= class_name %> < ActiveRecord::Base
   # end
 
   # Uncomment these methods for user activation  These also help let the mailer know precisely when the user is activated.
+  # There's also a commented-out before hook above and a protected method below.
+  #
   # The controller has a commented-out 'activate' action too.
   #
   # # Activates the user in the database.
@@ -104,4 +109,9 @@ class <%= class_name %> < ActiveRecord::Base
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
     self.crypted_password = encrypt(password)
   end
+
+  # If you're going to use activation, uncomment this too
+  #def make_activation_code
+  #  self.activation_code = Digest::SHA1.hexdigest( Time.now.to_s.split('//').sort_by {rand}.join )
+  #end
 end

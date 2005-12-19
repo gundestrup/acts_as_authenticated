@@ -1,3 +1,11 @@
+* (17 Dec 2005)
+
+  Various typos fixed.  Examples for using an activation code added [Ben Bleything]
+
+* (6 Dec 2005)
+
+  Add some docs to README, add install.rb script
+
 * (20 Nov 2005)
 
   Redirect to signup page if no users have been created [Bousquet]

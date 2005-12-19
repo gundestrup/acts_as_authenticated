@@ -12,7 +12,7 @@ class <%= class_name %>Notifier < ActionMailer::Base
   end
   
   protected
-  def setup_email(<%= class_path %>)
+  def setup_email(<%= file_name %>)
     @recipients  = "#{<%= file_name %>.email}"
     @from        = "ADMINEMAIL"
     @subject     = "[YOURSITE] "

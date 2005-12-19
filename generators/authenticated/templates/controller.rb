@@ -37,7 +37,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   #def activate
   #  @<%= file_name %> = <%= class_name %>.find_by_activation_code(params[:id])
   #  if @<%= file_name %> and @<%= file_name %>.activate
-  #    self.current_<%= file_name %> @<%= file_name %>
+  #    self.current_<%= file_name %> = @<%= file_name %>
   #    redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
   #    flash[:notice] = "Your <%= controller_file_name %> has been activated."
   #  end
