@@ -39,7 +39,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   #  if @<%= file_name %> and @<%= file_name %>.activate
   #    self.current_<%= file_name %> = @<%= file_name %>
   #    redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
-  #    flash[:notice] = "Your <%= controller_file_name %> has been activated."
+  #    flash[:notice] = "Your account has been activated."
   #  end
   #end
 

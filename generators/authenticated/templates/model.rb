@@ -4,8 +4,8 @@
 #     t.column "email",            :string, :limit => 100
 #     t.column "crypted_password", :string, :limit => 40
 #     t.column "salt",             :string, :limit => 40
-#     t.column "activation_code",  :string, :limit => 40
-#     t.column "active",           :boolean, :default => false # only if you want user activation
+#     t.column "activation_code",  :string, :limit => 40 # only if you want
+#     t.column "activated_at",     :datetime             # user activation
 #     t.column "created_at",       :datetime
 #     t.column "updated_at",       :datetime
 #   end
@@ -46,9 +46,9 @@ class <%= class_name %> < ActiveRecord::Base
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find_by_login(login) # need to get the salt
     # use this instead if you want user activation
-    # u = find :first, :select => 'id, salt', :conditions => ['login = ? and active = ?', login, true]
+    # u = find :first, :select => 'id, salt', :conditions => ['login = ? and activated_at IS NOT NULL', login]
+    u = find_by_login(login) # need to get the salt
     return nil unless u
     find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, u.encrypt(password)]
   end
