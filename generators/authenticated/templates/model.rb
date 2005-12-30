@@ -29,20 +29,18 @@ class <%= class_name %> < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
-  no_crypted_password = Proc.new { |record| record.crypted_password.nil? }
   validates_uniqueness_of   :login, :email, :salt
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
-  validates_length_of       :password, :within => 5..40, :allow_nil => true
+  validates_length_of       :password, :within => 5..40, :if => :password_required?
   validates_presence_of     :login, :email
   validates_presence_of     :password, 
                             :password_confirmation,
-                            :if => no_crypted_password
-  validates_confirmation_of :password, :if => no_crypted_password
+                            :if => :password_required?
+  validates_confirmation_of :password, :if => :password_required?
   before_save :encrypt_password
-
   # Uncomment this to use activation
-  #before_create :make_activation_code
+  # before_create :make_activation_code
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
@@ -94,7 +92,7 @@ class <%= class_name %> < ActiveRecord::Base
   # # Activates the user in the database.
   # def activate
   #   @activated = true
-  #   update_attributes(:active => true)
+  #   update_attributes(:activated_at => Time.now.utc, :activation_code => nil)
   # end
   # 
   # # Returns true if the user has just been activated.
@@ -108,6 +106,10 @@ class <%= class_name %> < ActiveRecord::Base
     return unless password
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
     self.crypted_password = encrypt(password)
+  end
+
+  def password_required?
+    crypted_password.nil? or not password.blank?
   end
 
   # If you're going to use activation, uncomment this too
