@@ -33,11 +33,9 @@ class <%= class_name %> < ActiveRecord::Base
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
   validates_length_of       :password, :within => 5..40, :if => :password_required?
-  validates_presence_of     :login, :email
-  validates_presence_of     :password, 
-                            :password_confirmation,
-                            :if => :password_required?
-  validates_confirmation_of :password, :if => :password_required?
+  validates_presence_of     :login, :email, :password
+  validates_presence_of     :password_confirmation, :if => :password_required?
+  validates_confirmation_of :password,              :if => :password_required?
   before_save :encrypt_password
   # Uncomment this to use activation
   # before_create :make_activation_code
