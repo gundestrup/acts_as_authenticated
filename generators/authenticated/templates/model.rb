@@ -101,13 +101,13 @@ class <%= class_name %> < ActiveRecord::Base
   protected
   # before filter 
   def encrypt_password
-    return unless password
+    return if password.blank?
     self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
     self.crypted_password = encrypt(password)
   end
 
   def password_required?
-    crypted_password.nil? or not password.blank?
+    crypted_password.blank? or not password.blank?
   end
 
   # If you're going to use activation, uncomment this too

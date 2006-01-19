@@ -1,3 +1,8 @@
+* (18 Jan 2005)
+
+  Fixed bug with password field adding validation errors [Chris Nolan]
+  Added persistent login example [Chris Nolan]
+
 * (17 Dec 2005)
 
   Various typos fixed.  Examples for using an activation code added [Ben Bleything]

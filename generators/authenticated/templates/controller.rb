@@ -15,8 +15,15 @@ class <%= controller_class_name %>Controller < ApplicationController
     redirect_to(:action => 'signup') unless logged_in? or <%= class_name %>.count > 0
   end
 
+  # If you want persistent logins, uncomment the second line of #login and add this to your login.rhtml view:
+  #
+  #   <p><label for="remember_me">Remember Me?</label>
+  #   <%= check_box_tag 'remember_me', 1, true %></p>
+  #
+  # Keep in mind that this will cause your session to stick around for 4 weeks.  If this is undesirable, use a plain old cookie.
   def login
     return unless request.post?
+    #::ActionController::CgiRequest::DEFAULT_SESSION_OPTIONS.update(:session_expires => 4.weeks.from_now) if params[:remember_me]
     self.current_<%= file_name %> = <%= class_name %>.authenticate(params[:login], params[:password])
     if current_<%= file_name %>
       redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
