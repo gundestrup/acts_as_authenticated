@@ -18,7 +18,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   # If you want persistent logins, uncomment the second line of #login and add this to your login.rhtml view:
   #
   #   <p><label for="remember_me">Remember Me?</label>
-  #   <%= check_box_tag 'remember_me', 1, true %></p>
+  #   <%%= check_box_tag 'remember_me', 1, true %></p>
   #
   # Keep in mind that this will cause your session to stick around for 4 weeks.  If this is undesirable, use a plain old cookie.
   def login

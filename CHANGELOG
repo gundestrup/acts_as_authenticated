@@ -1,3 +1,7 @@
+* (19 Jan 2005)
+
+  Fixed generator erb bug [Kyle Maxwell]
+
 * (18 Jan 2005)
 
   Fixed bug with password field adding validation errors [Chris Nolan]
