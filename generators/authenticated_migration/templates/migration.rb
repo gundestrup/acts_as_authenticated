@@ -1,7 +1,7 @@
 class <%= class_name %> < ActiveRecord::Migration
   # modify the table name for now, until I can figure out how to set it w/ the generator
   def self.up
-    create_table "<%= table_name %>", :force => true do |t|
+    create_table "<%= user_table_name %>", :force => true do |t|
       t.column "login",            :string, :limit => 40
       t.column "email",            :string, :limit => 100
       t.column "crypted_password", :string, :limit => 40
@@ -14,6 +14,6 @@ class <%= class_name %> < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "<%= table_name %>"
+    drop_table "<%= user_table_name %>"
   end
 end
