@@ -1,5 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require '<%= file_name %>_mailer'
+require '<%= file_name %>_notifier'
 
 class <%= class_name %>NotifierTest < Test::Unit::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
@@ -18,7 +18,7 @@ class <%= class_name %>NotifierTest < Test::Unit::TestCase
 
   private
     def read_fixture(action)
-      IO.readlines("#{FIXTURES_PATH}/user_mailer/#{action}")
+      IO.readlines("#{FIXTURES_PATH}/<%= file_name %>_notifier/#{action}")
     end
 
     def encode(subject)
