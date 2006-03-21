@@ -1,5 +1,4 @@
 class <%= class_name %> < ActiveRecord::Migration
-  # modify the table name for now, until I can figure out how to set it w/ the generator
   def self.up
     create_table "<%= user_table_name %>", :force => true do |t|
       t.column "login",            :string, :limit => 40

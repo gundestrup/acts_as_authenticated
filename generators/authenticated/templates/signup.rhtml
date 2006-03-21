@@ -1,15 +1,15 @@
-<%%= start_form_tag %>
+<%% form_for :<%= file_name %>, @<%= file_name %> do |f| %>
 <p><label for="login">Login</label><br/>
-<%%= text_field '<%= file_name %>', 'login' %></p>
+<%%= f.text_field :login %></p>
 
 <p><label for="email">Email</label><br/>
-<%%= text_field '<%= file_name %>', 'email' %></p>
+<%%= f.text_field :email %></p>
 
 <p><label for="password">Password</label><br/>
-<%%= password_field '<%= file_name %>', 'password' %></p>
+<%%= f.password_field :password %></p>
 
 <p><label for="password_confirmation">Confirm Password</label><br/>
-<%%= password_field '<%= file_name %>', 'password_confirmation' %></p>
+<%%= f.password_field :password_confirmation %></p>
 
 <p><%%= submit_tag 'Sign up' %></p>
-<%%= end_form_tag %>
+<%% end %>

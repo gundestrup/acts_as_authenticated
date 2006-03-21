@@ -4,27 +4,37 @@ class <%= class_name %>Test < Test::Unit::TestCase
   fixtures :<%= table_name %>
 
   def test_should_create_<%= file_name %>
-    assert create_<%= file_name %>.valid?
+    assert_difference <%= class_name %>, :count do
+      assert create_<%= file_name %>.valid?
+    end
   end
 
   def test_should_require_login
-    u = create_<%= file_name %>(:login => nil)
-    assert u.errors.on(:login)
+    assert_no_difference <%= class_name %>, :count do
+      u = create_<%= file_name %>(:login => nil)
+      assert u.errors.on(:login)
+    end
   end
 
   def test_should_require_password
-    u = create_<%= file_name %>(:password => nil)
-    assert u.errors.on(:password)
+    assert_no_difference <%= class_name %>, :count do
+      u = create_<%= file_name %>(:password => nil)
+      assert u.errors.on(:password)
+    end
   end
 
   def test_should_require_password_confirmation
-    u = create_<%= file_name %>(:password_confirmation => nil)
-    assert u.errors.on(:password_confirmation)
+    assert_no_difference <%= class_name %>, :count do
+      u = create_<%= file_name %>(:password_confirmation => nil)
+      assert u.errors.on(:password_confirmation)
+    end
   end
 
   def test_should_require_email
-    u = create_<%= file_name %>(:email => nil)
-    assert u.errors.on(:email)
+    assert_no_difference <%= class_name %>, :count do
+      u = create_<%= file_name %>(:email => nil)
+      assert u.errors.on(:email)
+    end
   end
 
   def test_should_reset_password
