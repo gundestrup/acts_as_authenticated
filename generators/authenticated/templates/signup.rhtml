@@ -1,4 +1,4 @@
-<%% form_for :<%= file_name %>, @<%= file_name %> do |f| %>
+<%% form_for :<%= file_name %>, @<%= file_name %> do |f| -%>
 <p><label for="login">Login</label><br/>
 <%%= f.text_field :login %></p>
 
@@ -12,4 +12,4 @@
 <%%= f.password_field :password_confirmation %></p>
 
 <p><%%= submit_tag 'Sign up' %></p>
-<%% end %>
+<%% end -%>
