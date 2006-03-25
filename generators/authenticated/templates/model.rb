@@ -46,8 +46,7 @@ class <%= class_name %> < ActiveRecord::Base
     # use this instead if you want user activation
     # u = find :first, :select => 'id, salt', :conditions => ['login = ? and activated_at IS NOT NULL', login]
     u = find_by_login(login) # need to get the salt
-    return nil unless u
-    find :first, :conditions => ["id = ? AND crypted_password = ?", u.id, u.encrypt(password)]
+    u && u.authenticated?(password) ? u : nil
   end
 
   # Encrypts some data with the salt.
@@ -58,6 +57,10 @@ class <%= class_name %> < ActiveRecord::Base
   # Encrypts the password with the user salt
   def encrypt(password)
     self.class.encrypt(password, salt)
+  end
+
+  def authenticated?(password)
+    crypted_password == encrypt(password)
   end
 
   # More extra credit for adding 2-way encryption.  Feel free to remove self.encrypt above if you use this
