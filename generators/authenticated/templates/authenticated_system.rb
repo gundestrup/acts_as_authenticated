@@ -1,6 +1,8 @@
 module AuthenticatedSystem
   protected
   def logged_in?
+    # Example of integration with account_location plugin
+    # session[account_subdomain] == :authenticated && current_<%= file_name %>
     current_<%= file_name %>
   end
 
@@ -24,6 +26,8 @@ module AuthenticatedSystem
   #   end
   # 
   def current_<%= file_name %>=(new_<%= file_name %>)
+    # Example of integration with account_location plugin
+    # session[account_subdomain] = new_<%= file_name %>.nil? ? nil : :authenticated
     session[:<%= file_name %>] = new_<%= file_name %>.nil? ? nil : new_<%= file_name %>.id
     @current_<%= file_name %> = new_<%= file_name %>
   end
@@ -55,6 +59,16 @@ module AuthenticatedSystem
     true
   end
 
+  # Example of integration with account_location plugin
+  # def account?
+  #   @account ||= Account.find_by_username(account_subdomain)
+  # end
+  # 
+  # def account_required
+  #   return true if account?
+  #   redirect_to(:controller => '/<%= controller_file_name %>', :action => 'index') and return false
+  # end
+
   # To require logins, use:
   #
   #   before_filter :login_required                            # restrict all actions
@@ -85,7 +99,7 @@ module AuthenticatedSystem
   # example use :
   # a popup window might just close itself for instance
   def access_denied
-    redirect_to :controller=>"/<%= controller_file_name %>", :action =>"login"
+    redirect_to :controller => '/<%= controller_file_name %>', :action => 'login'
   end  
 
   # store current uri in  the session.
