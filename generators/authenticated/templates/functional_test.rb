@@ -14,10 +14,6 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
     @controller = <%= controller_class_name %>Controller.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    
-    # for testing action mailer
-    # @emails = ActionMailer::Base.deliveries 
-    # @emails.clear
   end
 
   def test_should_login_and_redirect
@@ -77,30 +73,6 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
     assert_nil session[:<%= file_name %>]
     assert_response :redirect
   end
-
-  # Uncomment if you're activating new user accounts
-  # 
-  # def test_should_activate_user
-  #   assert_nil User.authenticate('arthur', 'arthur')
-  #   get :activate, :id => users(:arthur).activation_code
-  #   assert_equal <%= table_name %>(:arthur), <%= class_name %>.authenticate('arthur', 'arthur')
-  # end
-  # 
-  # def test_should_activate_user_and_send_activation_email
-  #   get :activate, :id => <%= table_name %>(:arthur).activation_code
-  #   assert_equal 1, @emails.length
-  #   assert(@emails.first.subject =~ /Your account has been activated/)
-  #   assert(@emails.first.body    =~ /#{assigns(:<%= file_name %>).login}, your account has been activated/)
-  # end
-  # 
-  # def test_should_send_activation_email_after_signup
-  #   create_<%= file_name %>
-  #   assert_equal 1, @emails.length
-  #   assert(@emails.first.subject =~ /Please activate your new account/)
-  #   assert(@emails.first.body    =~ /Username: quire/)
-  #   assert(@emails.first.body    =~ /Password: quire/)
-  #   assert(@emails.first.body    =~ /account\/activate\/#{assigns(:<%= file_name %>).activation_code}/)
-  # end
 
   protected
   def create_<%= file_name %>(options = {})

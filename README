@@ -20,7 +20,5 @@ Generate a new migration for the user model:
 
   ./script/generate authenticated_migration add_authenticated_table
 
-Plenty of comments are provided in the source code to help you progress.  Look at the generated account controller 
-for examples on using the AuthenticatedSystem mixin, and the account controller functional tests for examples on the
-AuthenticatedTestHelper.
+Consult the Acts As Authenticated wiki for more: http://technoweenie.stikipad.com/plugins/show/Acts+as+Authenticated
    
