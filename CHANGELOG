@@ -1,6 +1,7 @@
 * (28 March 2006)
 
   Removed "extra credit" documentation into wiki: http://technoweenie.stikipad.com/plugins/show/Acts+as+Authenticated
+  Stop validating the user's salt since they can't even fix that if they wanted to.
 
 * (25 March 2006)
 
