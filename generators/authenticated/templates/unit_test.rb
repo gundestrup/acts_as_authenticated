@@ -1,6 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class <%= class_name %>Test < Test::Unit::TestCase
+  # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead.
+  # Then, you can remove it from this and the functional test.
+  include AuthenticatedTestHelper
   fixtures :<%= table_name %>
 
   def test_should_create_<%= file_name %>
