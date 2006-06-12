@@ -18,7 +18,7 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
   end
 
   def test_should_login_and_redirect
-    post :login, :login => 'quentin', :password => 'quentin'
+    post :login, :login => 'quentin', :password => 'test'
     assert session[:<%= file_name %>]
     assert_response :redirect
   end
@@ -78,6 +78,6 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
   protected
   def create_<%= file_name %>(options = {})
     post :signup, :<%= file_name %> => { :login => 'quire', :email => 'quire@example.com', 
-                             :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+      :password => 'quire', :password_confirmation => 'quire' }.merge(options)
   end
 end

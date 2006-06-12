@@ -47,11 +47,11 @@ class <%= class_name %>Test < Test::Unit::TestCase
 
   def test_should_not_rehash_password
     <%= table_name %>(:quentin).update_attributes(:login => 'quentin2')
-    assert_equal <%= table_name %>(:quentin), <%= class_name %>.authenticate('quentin2', 'quentin')
+    assert_equal <%= table_name %>(:quentin), <%= class_name %>.authenticate('quentin2', 'test')
   end
 
   def test_should_authenticate_<%= file_name %>
-    assert_equal <%= table_name %>(:quentin), <%= class_name %>.authenticate('quentin', 'quentin')
+    assert_equal <%= table_name %>(:quentin), <%= class_name %>.authenticate('quentin', 'test')
   end
 
   protected
