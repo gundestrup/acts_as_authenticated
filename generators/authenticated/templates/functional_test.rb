@@ -76,8 +76,8 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
   end
 
   protected
-  def create_<%= file_name %>(options = {})
-    post :signup, :<%= file_name %> => { :login => 'quire', :email => 'quire@example.com', 
-      :password => 'quire', :password_confirmation => 'quire' }.merge(options)
-  end
+    def create_<%= file_name %>(options = {})
+      post :signup, :<%= file_name %> => { :login => 'quire', :email => 'quire@example.com', 
+        :password => 'quire', :password_confirmation => 'quire' }.merge(options)
+    end
 end

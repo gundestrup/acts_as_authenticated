@@ -34,14 +34,14 @@ class <%= class_name %> < ActiveRecord::Base
   end
 
   protected
-  # before filter 
-  def encrypt_password
-    return if password.blank?
-    self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
-    self.crypted_password = encrypt(password)
-  end
-
-  def password_required?
-    crypted_password.blank? || !password.blank?
-  end
+    # before filter 
+    def encrypt_password
+      return if password.blank?
+      self.salt = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{login}--") if new_record?
+      self.crypted_password = encrypt(password)
+    end
+    
+    def password_required?
+      crypted_password.blank? || !password.blank?
+    end
 end

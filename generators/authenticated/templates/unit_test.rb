@@ -55,7 +55,7 @@ class <%= class_name %>Test < Test::Unit::TestCase
   end
 
   protected
-  def create_<%= file_name %>(options = {})
-    <%= class_name %>.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
-  end
+    def create_<%= file_name %>(options = {})
+      <%= class_name %>.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
+    end
 end
