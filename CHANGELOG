@@ -1,3 +1,9 @@
+* (12 June 2006)
+
+  Fixed logged_in? so it does not keep hitting the database on every call if the user is not logged in.
+  Removed useless protect? method
+  Removed required 'user' argument of authorized?.  Access action_name and current_user to determine authorization.
+
 * (28 March 2006)
 
   Removed "extra credit" documentation into wiki: http://technoweenie.stikipad.com/plugins/show/Acts+as+Authenticated

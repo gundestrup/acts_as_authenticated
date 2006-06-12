@@ -4,7 +4,7 @@ class <%= controller_class_name %>Controller < ApplicationController
 
   # say something nice, you goof!  something sweet.
   def index
-    redirect_to(:action => 'signup') unless logged_in? or <%= class_name %>.count > 0
+    redirect_to(:action => 'signup') unless logged_in? || <%= class_name %>.count > 0
   end
 
   def login

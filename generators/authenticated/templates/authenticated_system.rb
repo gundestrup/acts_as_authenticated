@@ -3,7 +3,7 @@ module AuthenticatedSystem
     # Returns true or false if the user is logged in.
     # Preloads @current_<%= file_name %> with the user model if they're logged in.
     def logged_in?
-      (@current_<%= file_name %> ||= session[:<%= file_name %>] ? User.find_by_id(session[:<%= file_name %>]) : :false).is_a?(<%= class_name %>)
+      (@current_<%= file_name %> ||= session[:<%= file_name %>] ? <%= class_name %>.find_by_id(session[:<%= file_name %>]) : :false).is_a?(<%= class_name %>)
     end
     
     # Accesses the current <%= file_name %> from the session.
@@ -26,30 +26,11 @@ module AuthenticatedSystem
     # Example:
     #
     #  # only allow nonbobs
-    #  def authorize?(<%= file_name %>)
-    #    <%= file_name %>.login != "bob"
+    #  def authorize?
+    #    current_<%= file_name %>.login != "bob"
     #  end
-    def authorized?(<%= file_name %>)
+    def authorized?
        true
-    end
-    
-    # Check whether or not to protect an action.
-    #
-    # Override this method in your controllers if you only want to protect
-    # certain actions.
-    #
-    # Example:
-    #
-    #  # don't protect the login and the about method
-    #  def protect?(action)
-    #    if ['action', 'about'].include?(action)
-    #       return false
-    #    else
-    #       return true
-    #    end
-    #  end
-    def protect?(action)
-      true
     end
     
     # Filter method to enforce a login requirement.
@@ -66,12 +47,9 @@ module AuthenticatedSystem
     #
     #   skip_before_filter :login_required
     #
-    def login_required
-      # Skip this filter if the requested action is not protected
-      return true unless protect?(action_name)
-    
+    def login_required    
       # Check if <%= file_name %> is logged in and authorized
-      return true if logged_in? and authorized?(current_<%= file_name %>)
+      return true if logged_in? && authorized?
     
       # Store current location so that we can redirect back after login
       store_location
