@@ -47,16 +47,26 @@ module AuthenticatedSystem
     #
     #   skip_before_filter :login_required
     #
-    def login_required    
-      # Check if <%= file_name %> is logged in and authorized
-      return true if logged_in? && authorized?
-    
-      # Store current location so that we can redirect back after login
-      store_location
-    
-      # Call access_denied for an appropriate redirect and stop the filter
-      # chain here
-      access_denied and return false
+    def login_required
+      respond_to do |accepts|
+        accepts.html do
+          unless logged_in? && authorized?
+            session[:return_to] = request.request_uri
+            redirect_to :controller => '/account', :action => 'login'
+            return false
+          end
+        end
+        accepts.xml do
+          username, passwd = get_auth_data
+          self.current_user = <%= class_name %>.authenticate(username, passwd) if username && passwd
+          unless logged_in? && authorized?
+            headers["Status"]           = "Unauthorized"
+            headers["WWW-Authenticate"] = %(Basic realm="Web Password")
+            render :text => "Could't authenticate you", :status => '401 Unauthorized'
+            return false
+          end
+        end
+      end
     end
     
     # Redirect as appropriate when an access request fails.
@@ -89,5 +99,25 @@ module AuthenticatedSystem
     # available as ActionView helper methods.
     def self.included(base)
       base.send :helper_method, :current_<%= file_name %>, :logged_in?
+    end
+
+  private
+    # gets BASIC auth info
+    def get_auth_data
+      user, pass = nil, nil
+      # extract authorisation credentials 
+      if request.env.has_key? 'X-HTTP_AUTHORIZATION' 
+        # try to get it where mod_rewrite might have put it 
+        authdata = request.env['X-HTTP_AUTHORIZATION'].to_s.split 
+      elsif request.env.has_key? 'HTTP_AUTHORIZATION' 
+        # this is the regular location 
+        authdata = request.env['HTTP_AUTHORIZATION'].to_s.split  
+      end 
+       
+      # at the moment we only support basic authentication 
+      if authdata && authdata[0] == 'Basic' 
+        user, pass = Base64.decode64(authdata[1]).split(':')[0..1] 
+      end 
+      return [user, pass] 
     end
 end
