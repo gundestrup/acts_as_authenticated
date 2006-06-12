@@ -10,7 +10,7 @@ class <%= class_name %> < ActiveRecord::Base
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 3..40
   validates_length_of       :email,    :within => 3..100
-  validates_uniqueness_of   :login, :email
+  validates_uniqueness_of   :login, :email, :case_sensitive => false
   before_save :encrypt_password
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
@@ -42,6 +42,6 @@ class <%= class_name %> < ActiveRecord::Base
   end
 
   def password_required?
-    crypted_password.blank? or not password.blank?
+    crypted_password.blank? || !password.blank?
   end
 end
