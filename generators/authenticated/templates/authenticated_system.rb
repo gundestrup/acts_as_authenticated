@@ -32,7 +32,7 @@ module AuthenticatedSystem
     def authorized?
        true
     end
-    
+
     # Filter method to enforce a login requirement.
     #
     # To require logins for all actions, use this in your controllers:
@@ -48,25 +48,21 @@ module AuthenticatedSystem
     #   skip_before_filter :login_required
     #
     def login_required
+      username, passwd = get_auth_data
+      self.current_<%= file_name %> ||= <%= class_name %>.authenticate(username, passwd) || :false if username && passwd
+      return true if logged_in? && authorized?
       respond_to do |accepts|
         accepts.html do
-          unless logged_in? && authorized?
-            session[:return_to] = request.request_uri
-            redirect_to :controller => '/account', :action => 'login'
-            return false
-          end
+          session[:return_to] = request.request_uri
+          redirect_to :controller => 'account', :action => 'login'
         end
         accepts.xml do
-          username, passwd = get_auth_data
-          self.current_user = <%= class_name %>.authenticate(username, passwd) if username && passwd
-          unless logged_in? && authorized?
-            headers["Status"]           = "Unauthorized"
-            headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-            render :text => "Could't authenticate you", :status => '401 Unauthorized'
-            return false
-          end
+          headers["Status"]           = "Unauthorized"
+          headers["WWW-Authenticate"] = %(Basic realm="Web Password")
+          render :text => "Could't authenticate you", :status => '401 Unauthorized'
         end
       end
+      false
     end
     
     # Redirect as appropriate when an access request fails.
