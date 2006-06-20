@@ -27,6 +27,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   
   def logout
     self.current_<%= file_name %> = nil
+    reset_session
     flash[:notice] = "You have been logged out."
     redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
   end
