@@ -54,6 +54,19 @@ class <%= class_name %>Test < Test::Unit::TestCase
     assert_equal <%= table_name %>(:quentin), <%= class_name %>.authenticate('quentin', 'test')
   end
 
+  def test_should_set_remember_token
+    <%= table_name %>(:quentin).remember_me
+    assert_not_nil <%= table_name %>(:quentin).remember_token
+    assert_not_nil <%= table_name %>(:quentin).remember_token_expires_at
+  end
+
+  def test_should_unset_remember_token
+    <%= table_name %>(:quentin).remember_me
+    assert_not_nil <%= table_name %>(:quentin).remember_token
+    <%= table_name %>(:quentin).forget_me
+    assert_nil <%= table_name %>(:quentin).remember_token
+  end
+
   protected
     def create_<%= file_name %>(options = {})
       <%= class_name %>.create({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
