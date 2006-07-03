@@ -8,7 +8,7 @@ class <%= class_name %> < ActiveRecord::Migration
       t.column :created_at,                :datetime
       t.column :updated_at,                :datetime
       t.column :remember_token,            :string
-      t.column :remember_token_expires, :datetime
+      t.column :remember_token_expires_at, :datetime
     end
   end
 
