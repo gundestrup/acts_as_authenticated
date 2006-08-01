@@ -123,7 +123,7 @@ class <%= controller_class_name %>ControllerTest < Test::Unit::TestCase
       CGI::Cookie.new('name' => 'auth_token', 'value' => token)
     end
     
-    def cookie_for(user)
-      auth_token users(user).remember_token
+    def cookie_for(<%= file_name %>)
+      auth_token <%= table_name %>(<%= file_name %>).remember_token
     end
 end
