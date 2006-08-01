@@ -25,10 +25,12 @@ class <%= controller_class_name %>Controller < ApplicationController
   def signup
     @<%= file_name %> = <%= class_name %>.new(params[:<%= file_name %>])
     return unless request.post?
-    if @<%= file_name %>.save
-      redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
-      flash[:notice] = "Thanks for signing up!"
-    end
+    @<%= file_name %>.save!
+    self.current_<%= file_name %> = @<%= file_name %>
+    redirect_back_or_default(:controller => '/<%= controller_file_name %>', :action => 'index')
+    flash[:notice] = "Thanks for signing up!"
+  rescue ActiveRecord::RecordInvalid
+    render :action => 'signup'
   end
   
   def logout

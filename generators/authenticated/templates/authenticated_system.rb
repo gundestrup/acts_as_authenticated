@@ -50,19 +50,7 @@ module AuthenticatedSystem
     def login_required
       username, passwd = get_auth_data
       self.current_<%= file_name %> ||= <%= class_name %>.authenticate(username, passwd) || :false if username && passwd
-      return true if logged_in? && authorized?
-      respond_to do |accepts|
-        accepts.html do
-          session[:return_to] = request.request_uri
-          redirect_to :controller => '<%= controller_file_name %>', :action => 'login'
-        end
-        accepts.xml do
-          headers["Status"]           = "Unauthorized"
-          headers["WWW-Authenticate"] = %(Basic realm="Web Password")
-          render :text => "Could't authenticate you", :status => '401 Unauthorized'
-        end
-      end
-      false
+      logged_in? && authorized? ? true : access_denied
     end
     
     # Redirect as appropriate when an access request fails.
@@ -74,7 +62,18 @@ module AuthenticatedSystem
     # to access the requested action.  For example, a popup window might
     # simply close itself.
     def access_denied
-      redirect_to :controller => '/<%= controller_file_name %>', :action => 'login'
+      respond_to do |accepts|
+        accepts.html do
+          store_location
+          redirect_to :controller => '<%= controller_file_name %>', :action => 'login'
+        end
+        accepts.xml do
+          headers["Status"]           = "Unauthorized"
+          headers["WWW-Authenticate"] = %(Basic realm="Web Password")
+          render :text => "Could't authenticate you", :status => '401 Unauthorized'
+        end
+      end
+      false
     end  
     
     # Store the URI of the current request in the session.

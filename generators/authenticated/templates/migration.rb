@@ -1,6 +1,6 @@
-class <%= class_name %> < ActiveRecord::Migration
+class <%= migration_name %> < ActiveRecord::Migration
   def self.up
-    create_table "<%= user_table_name %>", :force => true do |t|
+    create_table "<%= table_name %>", :force => true do |t|
       t.column :login,                     :string
       t.column :email,                     :string
       t.column :crypted_password,          :string, :limit => 40
@@ -13,6 +13,6 @@ class <%= class_name %> < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table "<%= user_table_name %>"
+    drop_table "<%= table_name %>"
   end
 end

@@ -1,3 +1,10 @@
+* (1 Aug 2006)
+
+  Add error_messages_for to signup.rhtml
+  Favor save! over save in #signup
+  Refactor Authenticated System, actually use access_denied again
+  Change arthur fixture to aaron stack, the machine man!
+
 * (3 July 2006)
 
   Add cookie token support [cnf]

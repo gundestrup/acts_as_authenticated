@@ -85,6 +85,12 @@ class AuthenticatedGenerator < Rails::Generator::NamedBase
         m.template "#{action}.rhtml",
                    File.join('app/views', controller_class_path, controller_file_name, "#{action}.rhtml")
       end
+
+      unless options[:skip_migration]
+        m.migration_template 'migration.rb', 'db/migrate', :assigns => {
+          :migration_name => "Create#{class_name.pluralize.gsub(/::/, '')}"
+        }, :migration_file_name => "create_#{file_path.gsub(/\//, '_').pluralize}"
+      end
     end
   end
 

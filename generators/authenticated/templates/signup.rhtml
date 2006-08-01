@@ -1,4 +1,5 @@
-<%% form_for :<%= file_name %>, @<%= file_name %> do |f| -%>
+<%%= error_messages_for :<%= file_name %> %>
+<%% form_for :<%= file_name %> do |f| -%>
 <p><label for="login">Login</label><br/>
 <%%= f.text_field :login %></p>
 
