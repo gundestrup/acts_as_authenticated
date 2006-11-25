@@ -12,7 +12,7 @@ class <%= controller_class_name %>Controller < ApplicationController
   def login
     return unless request.post?
     self.current_<%= file_name %> = <%= class_name %>.authenticate(params[:login], params[:password])
-    if current_<%= file_name %>
+    if logged_in?
       if params[:remember_me] == "1"
         self.current_<%= file_name %>.remember_me
         cookies[:auth_token] = { :value => self.current_<%= file_name %>.remember_token , :expires => self.current_<%= file_name %>.remember_token_expires_at }
