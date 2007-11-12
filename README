@@ -1,6 +1,8 @@
 acts_as_authenticated generator
 ====
 
+DEPRECATED: Use restful_authentication instead.  Or, ask me for commit rights if you wish to maintain this plugin.
+
 This is a basic authentication generator for rails, very much in the spirit of xal's original Login Generator.
 
 To use:
