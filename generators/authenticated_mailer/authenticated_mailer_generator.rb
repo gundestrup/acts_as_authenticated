@@ -19,8 +19,8 @@ class AuthenticatedMailerGenerator < Rails::Generator::NamedBase
 
       # Mailer templates
       %w( activation signup_notification ).each do |action|
-        m.template "#{action}.rhtml",
-                   File.join('app/views', "#{file_name}_notifier", "#{action}.rhtml")
+        m.template "#{action}.html.erb",
+                   File.join('app/views', "#{file_name}_notifier", "#{action}.html.erb")
       end
     end
   end

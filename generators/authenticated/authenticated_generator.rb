@@ -82,8 +82,8 @@ class AuthenticatedGenerator < Rails::Generator::NamedBase
 
       # Controller templates
       %w( index login signup ).each do |action|
-        m.template "#{action}.rhtml",
-                   File.join('app/views', controller_class_path, controller_file_name, "#{action}.rhtml")
+        m.template "#{action}.html.erb",
+                   File.join('app/views', controller_class_path, controller_file_name, "#{action}.html.erb")
       end
 
       unless options[:skip_migration]
