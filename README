@@ -1,12 +1,18 @@
 acts_as_authenticated generator
 ====
-
-DEPRECATED: Use restful_authentication instead.  Or, ask me for commit rights if you wish to maintain this plugin.
+------------------------------------------------------------------
+DEPRECATED: Use restful_authentication instead. 
+http://github.com/technoweenie/restful-authentication/tree/master
+------------------------------------------------------------------
+AAA was created by technoweenie.
+I have salved the source code from technoweenie + wiki for future referance.
 
 This is a basic authentication generator for rails, very much in the spirit of xal's original Login Generator.
 
 To use:
-
+1) Install the plugin
+  ./ruby script/plugin install git://github.com/gundestrup/acts_as_authenticated.git
+2) create the model + controller
   ./script/generate authenticated user account
 
 This generates a basic user model, a controller, some basic views, and tests.  Extra functionality can be unlocked by
@@ -18,5 +24,5 @@ Generate your mailer:
 
   ./script/generate authenticated_mailer user
 
-Consult the Acts As Authenticated wiki for more: http://technoweenie.stikipad.com/plugins/show/Acts+as+Authenticated
-   
+Consult the Acts As Authenticated wiki for more: http://wiki.github.com/gundestrup/acts_as_authenticated
+This is the source code, that technoweenie created, with no changes.
