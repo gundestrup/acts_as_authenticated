@@ -25,4 +25,5 @@ Generate your mailer:
   ./script/generate authenticated_mailer user
 
 Consult the Acts As Authenticated wiki for more: http://wiki.github.com/gundestrup/acts_as_authenticated
-This is the source code, that technoweenie created, with no changes.
+This is the source code, that technoweenie created.
+I have since updated the code to work with newer versions of Ruby on Rails 2.
